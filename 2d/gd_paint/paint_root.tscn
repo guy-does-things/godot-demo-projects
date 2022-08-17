@@ -1,222 +1,315 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://bdon7pyxaksfy"]
 
-[ext_resource path="res://paint_control.gd" type="Script" id=1]
-[ext_resource path="res://tools_panel.gd" type="Script" id=2]
-[ext_resource path="res://paint_tools.png" type="Texture" id=3]
+[ext_resource type="Script" path="res://paint_control.gd" id="1"]
+[ext_resource type="Script" path="res://tools_panel.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://bwarkcifpbbrn" path="res://paint_tools.png" id="3"]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 1, 1, 1, 1 )
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evv20"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nifl5"]
+bg_color = Color(0.194349, 0.194349, 0.194349, 1)
 
 [node name="PaintRoot" type="Control"]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+anchor_right = 1.0
+anchor_bottom = 1.0
+metadata/_edit_horizontal_guides_ = [-142.0]
 
 [node name="DrawingAreaBG" type="Panel" parent="."]
-margin_left = 350.0
-margin_right = 1280.0
-margin_bottom = 720.0
-custom_styles/panel = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_evv20")
+metadata/_edit_layout_mode = 1
 
 [node name="PaintControl" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+metadata/_edit_layout_mode = 1
 
 [node name="TLPos" type="Position2D" parent="PaintControl"]
-position = Vector2( 350, 0 )
+position = Vector2(350, 0)
 
 [node name="ToolsPanel" type="Panel" parent="."]
-margin_right = 350.0
-margin_bottom = 720.0
-script = ExtResource( 2 )
+anchor_bottom = 1.0
+offset_right = 351.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nifl5")
+script = ExtResource("2")
+metadata/_edit_layout_mode = 1
 
-[node name="LabelTools" type="Label" parent="ToolsPanel"]
-margin_left = 20.0
-margin_top = 10.0
-margin_right = 330.0
-margin_bottom = 24.0
+[node name="VBoxContainer" type="VBoxContainer" parent="ToolsPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="LabelTools" type="Label" parent="ToolsPanel/VBoxContainer"]
+unique_name_in_owner = true
+offset_right = 351.0
+offset_bottom = 26.0
 text = "Selected tool: Pencil"
-align = 1
+horizontal_alignment = 1
 
-[node name="ButtonToolPencil" type="Button" parent="ToolsPanel"]
-margin_left = 40.0
-margin_top = 40.0
-margin_right = 100.0
-margin_bottom = 100.0
+[node name="Tools" type="HBoxContainer" parent="ToolsPanel/VBoxContainer"]
+offset_top = 30.0
+offset_right = 351.0
+offset_bottom = 94.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
 
-[node name="Sprite" type="Sprite" parent="ToolsPanel/ButtonToolPencil"]
-position = Vector2( 30, 30 )
-scale = Vector2( 2.5, 2.5 )
-texture = ExtResource( 3 )
-region_enabled = true
-region_rect = Rect2( 0, 0, 16, 16 )
+[node name="ButtonToolPencil" type="Button" parent="ToolsPanel/VBoxContainer/Tools"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+offset_right = 84.0
+offset_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
 
-[node name="ButtonToolEraser" type="Button" parent="ToolsPanel"]
-margin_left = 110.0
-margin_top = 40.0
-margin_right = 170.0
-margin_bottom = 100.0
+[node name="NinePatchRect" type="NinePatchRect" parent="ToolsPanel/VBoxContainer/Tools/ButtonToolPencil"]
+custom_minimum_size = Vector2(40, 40)
+anchor_left = 0.261905
+anchor_top = 0.1875
+anchor_right = 0.738095
+anchor_bottom = 0.8125
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3")
+region_rect = Rect2(0, 0, 16, 16)
+metadata/_edit_layout_mode = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="Sprite" type="Sprite" parent="ToolsPanel/ButtonToolEraser"]
-position = Vector2( 30, 30 )
-scale = Vector2( 2.5, 2.5 )
-texture = ExtResource( 3 )
-region_enabled = true
-region_rect = Rect2( 16, 0, 16, 16 )
+[node name="ButtonToolEraser" type="Button" parent="ToolsPanel/VBoxContainer/Tools"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+offset_left = 88.0
+offset_right = 173.0
+offset_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
 
-[node name="ButtonToolRectangle" type="Button" parent="ToolsPanel"]
-margin_left = 180.0
-margin_top = 40.0
-margin_right = 240.0
-margin_bottom = 100.0
+[node name="NinePatchRect2" type="NinePatchRect" parent="ToolsPanel/VBoxContainer/Tools/ButtonToolEraser"]
+custom_minimum_size = Vector2(40, 40)
+anchor_left = 0.261905
+anchor_top = 0.1875
+anchor_right = 0.738095
+anchor_bottom = 0.8125
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3")
+region_rect = Rect2(16, 0, 16, 16)
+metadata/_edit_layout_mode = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="Sprite" type="Sprite" parent="ToolsPanel/ButtonToolRectangle"]
-position = Vector2( 30, 30 )
-scale = Vector2( 2.5, 2.5 )
-texture = ExtResource( 3 )
-region_enabled = true
-region_rect = Rect2( 0, 16, 16, 16 )
+[node name="ButtonToolRectangle" type="Button" parent="ToolsPanel/VBoxContainer/Tools"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+offset_left = 177.0
+offset_right = 262.0
+offset_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
 
-[node name="ButtonToolCircle" type="Button" parent="ToolsPanel"]
-margin_left = 250.0
-margin_top = 40.0
-margin_right = 310.0
-margin_bottom = 100.0
+[node name="NinePatchRect3" type="NinePatchRect" parent="ToolsPanel/VBoxContainer/Tools/ButtonToolRectangle"]
+custom_minimum_size = Vector2(40, 40)
+anchor_left = 0.261905
+anchor_top = 0.1875
+anchor_right = 0.738095
+anchor_bottom = 0.8125
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3")
+region_rect = Rect2(0, 16, 16, 16)
+metadata/_edit_layout_mode = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="Sprite" type="Sprite" parent="ToolsPanel/ButtonToolCircle"]
-position = Vector2( 30, 30 )
-scale = Vector2( 2.5, 2.5 )
-texture = ExtResource( 3 )
-region_enabled = true
-region_rect = Rect2( 16, 16, 16, 16 )
+[node name="ButtonToolCircle" type="Button" parent="ToolsPanel/VBoxContainer/Tools"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+offset_left = 266.0
+offset_right = 351.0
+offset_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
 
-[node name="LabelBrushColor" type="Label" parent="ToolsPanel"]
-margin_left = 20.0
-margin_top = 120.0
-margin_right = 330.0
-margin_bottom = 134.0
+[node name="NinePatchRect4" type="NinePatchRect" parent="ToolsPanel/VBoxContainer/Tools/ButtonToolCircle"]
+custom_minimum_size = Vector2(40, 40)
+anchor_left = 0.264706
+anchor_top = 0.1875
+anchor_right = 0.735294
+anchor_bottom = 0.8125
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3")
+region_rect = Rect2(16, 16, 16, 16)
+metadata/_edit_layout_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="LabelBrushColor" type="Label" parent="ToolsPanel/VBoxContainer"]
+offset_top = 98.0
+offset_right = 351.0
+offset_bottom = 124.0
 text = "Current color"
-align = 1
+horizontal_alignment = 1
 
-[node name="ColorPickerBrush" type="ColorPickerButton" parent="ToolsPanel"]
-margin_left = 20.0
-margin_top = 140.0
-margin_right = 330.0
-margin_bottom = 190.0
+[node name="ColorPickerBrush" type="ColorPickerButton" parent="ToolsPanel/VBoxContainer"]
+unique_name_in_owner = true
+offset_top = 128.0
+offset_right = 351.0
+offset_bottom = 157.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
 
-[node name="BrushSettings" type="Control" parent="ToolsPanel"]
-margin_top = 200.0
-margin_right = 350.0
-margin_bottom = 375.0
+[node name="BrushSettings" type="VBoxContainer" parent="ToolsPanel/VBoxContainer"]
+unique_name_in_owner = true
+offset_top = 161.0
+offset_right = 351.0
+offset_bottom = 309.0
+size_flags_vertical = 3
 
-[node name="LabelBrushSize" type="Label" parent="ToolsPanel/BrushSettings"]
-margin_left = 20.0
-margin_top = 10.0
-margin_right = 330.0
-margin_bottom = 24.0
+[node name="LabelBrushSize" type="Label" parent="ToolsPanel/VBoxContainer/BrushSettings"]
+offset_right = 351.0
+offset_bottom = 26.0
 text = "Brush size: 32px"
-align = 1
+horizontal_alignment = 1
 
-[node name="HScrollBarBrushSize" type="HScrollBar" parent="ToolsPanel/BrushSettings"]
-margin_left = 20.0
-margin_top = 30.0
-margin_right = 330.0
-margin_bottom = 60.0
+[node name="HScrollBarBrushSize" type="HScrollBar" parent="ToolsPanel/VBoxContainer/BrushSettings"]
+unique_name_in_owner = true
+offset_top = 30.0
+offset_right = 351.0
+offset_bottom = 50.0
+size_flags_vertical = 3
 min_value = 2.0
 step = 1.0
 value = 32.0
 
-[node name="LabelBrushShape" type="Label" parent="ToolsPanel/BrushSettings"]
-margin_left = 20.0
-margin_top = 80.0
-margin_right = 330.0
-margin_bottom = 94.0
+[node name="LabelBrushShape" type="Label" parent="ToolsPanel/VBoxContainer/BrushSettings"]
+offset_top = 54.0
+offset_right = 351.0
+offset_bottom = 80.0
 text = "Brush shape: Circle"
-align = 1
+horizontal_alignment = 1
 
-[node name="ButtonShapeBox" type="Button" parent="ToolsPanel/BrushSettings"]
-margin_left = 100.0
-margin_top = 100.0
-margin_right = 160.0
-margin_bottom = 160.0
+[node name="Shapes" type="HBoxContainer" parent="ToolsPanel/VBoxContainer/BrushSettings"]
+offset_top = 84.0
+offset_right = 351.0
+offset_bottom = 148.0
+size_flags_vertical = 3
+alignment = 1
 
-[node name="Sprite" type="Sprite" parent="ToolsPanel/BrushSettings/ButtonShapeBox"]
-position = Vector2( 30, 30 )
-scale = Vector2( 2.5, 2.5 )
-texture = ExtResource( 3 )
-region_enabled = true
-region_rect = Rect2( 0, 16, 16, 16 )
+[node name="ButtonShapeBox" type="Button" parent="ToolsPanel/VBoxContainer/BrushSettings/Shapes"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_direction = 1
+offset_left = 109.0
+offset_right = 173.0
+offset_bottom = 64.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
-[node name="ButtonShapeCircle" type="Button" parent="ToolsPanel/BrushSettings"]
-margin_left = 190.0
-margin_top = 100.0
-margin_right = 250.0
-margin_bottom = 160.0
+[node name="NinePatchRect4" type="NinePatchRect" parent="ToolsPanel/VBoxContainer/BrushSettings/Shapes/ButtonShapeBox"]
+custom_minimum_size = Vector2(40, 40)
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3")
+region_rect = Rect2(0, 16, 16, 16)
+metadata/_edit_layout_mode = 1
 
-[node name="Sprite" type="Sprite" parent="ToolsPanel/BrushSettings/ButtonShapeCircle"]
-position = Vector2( 30, 30 )
-scale = Vector2( 2.5, 2.5 )
-texture = ExtResource( 3 )
-region_enabled = true
-region_rect = Rect2( 16, 16, 16, 16 )
+[node name="ButtonShapeCircle" type="Button" parent="ToolsPanel/VBoxContainer/BrushSettings/Shapes"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_direction = 1
+offset_left = 177.0
+offset_right = 241.0
+offset_bottom = 64.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
 
-[node name="LabelBackgroundColor" type="Label" parent="ToolsPanel"]
-margin_left = 20.0
-margin_top = 400.0
-margin_right = 330.0
-margin_bottom = 414.0
+[node name="NinePatchRect5" type="NinePatchRect" parent="ToolsPanel/VBoxContainer/BrushSettings/Shapes/ButtonShapeCircle"]
+custom_minimum_size = Vector2(40, 40)
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3")
+region_rect = Rect2(16, 16, 16, 16)
+metadata/_edit_layout_mode = 1
+
+[node name="Control" type="Control" parent="ToolsPanel/VBoxContainer"]
+offset_top = 313.0
+offset_right = 351.0
+offset_bottom = 512.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.35
+
+[node name="LabelBackgroundColor" type="Label" parent="ToolsPanel/VBoxContainer"]
+offset_top = 516.0
+offset_right = 351.0
+offset_bottom = 542.0
 text = "Background color"
-align = 1
+horizontal_alignment = 1
 
-[node name="ColorPickerBackground" type="ColorPickerButton" parent="ToolsPanel"]
-margin_left = 20.0
-margin_top = 420.0
-margin_right = 330.0
-margin_bottom = 470.0
-color = Color( 1, 1, 1, 1 )
+[node name="ColorPickerBackground" type="ColorPickerButton" parent="ToolsPanel/VBoxContainer"]
+unique_name_in_owner = true
+offset_top = 546.0
+offset_right = 351.0
+offset_bottom = 584.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.26
+color = Color(1, 1, 1, 1)
 edit_alpha = false
 
-[node name="LabelStats" type="Label" parent="ToolsPanel"]
-modulate = Color( 0.414062, 0.414062, 0.414062, 1 )
-margin_left = 20.0
-margin_top = 590.0
-margin_right = 330.0
-margin_bottom = 604.0
-text = "Brush objects: 00000"
-align = 1
-
-[node name="ButtonUndo" type="Button" parent="ToolsPanel"]
-margin_left = 10.0
-margin_top = 520.0
-margin_right = 340.0
-margin_bottom = 560.0
+[node name="ButtonUndo" type="Button" parent="ToolsPanel/VBoxContainer"]
+unique_name_in_owner = true
+offset_top = 588.0
+offset_right = 351.0
+offset_bottom = 619.0
 text = "Undo last stroke"
 
-[node name="ButtonSave" type="Button" parent="ToolsPanel"]
-margin_left = 10.0
-margin_top = 620.0
-margin_right = 340.0
-margin_bottom = 660.0
+[node name="LabelStats" type="Label" parent="ToolsPanel/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(0.414062, 0.414062, 0.414062, 1)
+offset_top = 623.0
+offset_right = 351.0
+offset_bottom = 649.0
+text = "Brush objects: 00000"
+horizontal_alignment = 1
+
+[node name="ButtonSave" type="Button" parent="ToolsPanel/VBoxContainer"]
+unique_name_in_owner = true
+offset_top = 653.0
+offset_right = 351.0
+offset_bottom = 684.0
 text = "Save picture"
 
-[node name="ButtonClear" type="Button" parent="ToolsPanel"]
-margin_left = 10.0
-margin_top = 670.0
-margin_right = 340.0
-margin_bottom = 710.0
+[node name="ButtonClear" type="Button" parent="ToolsPanel/VBoxContainer"]
+unique_name_in_owner = true
+offset_top = 688.0
+offset_right = 351.0
+offset_bottom = 719.0
 text = "Clear picture"
 
 [node name="SaveFileDialog" type="FileDialog" parent="."]
-margin_right = 600.0
-margin_bottom = 400.0
-resizable = true
 access = 2
-filters = PoolStringArray( "*.png" )
-current_dir = "/home/aaronfranke/workspace/godot-demo-projects/2d/gd_paint"
-current_path = "/home/aaronfranke/workspace/godot-demo-projects/2d/gd_paint/"
+filters = PackedStringArray("*.png")

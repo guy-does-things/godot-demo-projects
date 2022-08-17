@@ -1,37 +1,38 @@
 extends Panel
 
-onready var brush_settings = $BrushSettings
-onready var label_brush_size = brush_settings.get_node(@"LabelBrushSize")
-onready var label_brush_shape = brush_settings.get_node(@"LabelBrushShape")
-onready var label_stats = $LabelStats
-onready var label_tools = $LabelTools
+@onready var brush_settings = $%BrushSettings
+@onready var label_brush_size = brush_settings.get_node("LabelBrushSize")
+@onready var label_brush_shape = brush_settings.get_node("LabelBrushShape")
+@onready var label_stats = $"%LabelStats"
+@onready var label_tools = $%LabelTools
 
-onready var _parent = get_parent()
-onready var save_dialog = _parent.get_node(@"SaveFileDialog")
-onready var paint_control = _parent.get_node(@"PaintControl")
+@onready var _parent = get_parent()
+@onready var save_dialog = _parent.get_node("SaveFileDialog")
+@onready var paint_control = _parent.get_node("PaintControl")
 
 func _ready():
 	# warning-ignore-all:return_value_discarded
 	# Assign all of the needed signals for the oppersation buttons.
-	$ButtonUndo.connect("pressed", self, "button_pressed", ["undo_stroke"])
-	$ButtonSave.connect("pressed", self, "button_pressed", ["save_picture"])
-	$ButtonClear.connect("pressed", self, "button_pressed", ["clear_picture"])
+	
+	$%ButtonUndo.connect("pressed", button_pressed, ["undo_stroke"])#connect("pressed", self, "button_pressed", ["undo_stroke"])
+	$%ButtonSave.connect("pressed", button_pressed,["save_picture"])#self, "button_pressed", ["save_picture"])
+	$%ButtonClear.connect("pressed",button_pressed, ["clear_picture"])# self, "button_pressed", ["clear_picture"])
 
 	# Assign all of the needed signals for the brush buttons.
-	$ButtonToolPencil.connect("pressed", self, "button_pressed", ["mode_pencil"])
-	$ButtonToolEraser.connect("pressed", self, "button_pressed", ["mode_eraser"])
-	$ButtonToolRectangle.connect("pressed", self, "button_pressed", ["mode_rectangle"])
-	$ButtonToolCircle.connect("pressed", self, "button_pressed", ["mode_circle"])
-	$BrushSettings/ButtonShapeBox.connect("pressed", self, "button_pressed", ["shape_rectangle"])
-	$BrushSettings/ButtonShapeCircle.connect("pressed", self, "button_pressed", ["shape_circle"])
+	$%ButtonToolPencil.connect("pressed",button_pressed, ["mode_pencil"])#, self, "button_pressed", ["mode_pencil"])
+	$%ButtonToolEraser.connect("pressed", button_pressed, ["mode_eraser"])#self, "button_pressed", ["mode_eraser"])
+	$%ButtonToolRectangle.connect("pressed",button_pressed, ["mode_rectangle"])# self, "button_pressed", ["mode_rectangle"])
+	$%ButtonToolCircle.connect("pressed",button_pressed, ["mode_circle"])# self, "button_pressed", ["mode_circle"])
+	$%ButtonShapeBox.connect("pressed",button_pressed, ["shape_rectangle"])# self, "button_pressed", ["shape_rectangle"])
+	$%ButtonShapeCircle.connect("pressed",button_pressed, ["shape_circle"])# self, "button_pressed", ["shape_circle"])
 
 	# Assign all of the needed signals for the other brush settings (and ColorPickerBackground).
-	$ColorPickerBrush.connect("color_changed", self, "brush_color_changed")
-	$ColorPickerBackground.connect("color_changed", self, "background_color_changed")
-	$BrushSettings/HScrollBarBrushSize.connect("value_changed", self, "brush_size_changed")
+	$%ColorPickerBrush.connect("color_changed", brush_color_changed)#self, "brush_color_changed")
+	$%ColorPickerBackground.connect("color_changed", background_color_changed)#self, "background_color_changed")
+	$%HScrollBarBrushSize.connect("value_changed", brush_size_changed)#self, "brush_size_changed")
 
 	# Assign the "file_selected" signal in SaveFileDialog.
-	save_dialog.connect("file_selected", self, "save_file_selected")
+	save_dialog.connect("file_selected", save_file_selected)#self, "save_file_selected")
 
 	# Set physics process so we can update the status label.
 	set_physics_process(true)
@@ -39,7 +40,7 @@ func _ready():
 
 func _physics_process(_delta):
 	# Update the status label with the newest brush element count.
-	label_stats.text = "Brush objects: " + String(paint_control.brush_data_list.size())
+	label_stats.text = "Brush objects: " + str(paint_control.brush_data_list.size())
 
 
 func button_pressed(button_name):
@@ -104,7 +105,7 @@ func background_color_changed(color):
 func brush_size_changed(value):
 	# Change the size of the brush, and update the label to reflect the new value.
 	paint_control.brush_size = ceil(value)
-	label_brush_size.text = "Brush size: " + String(ceil(value)) + "px"
+	label_brush_size.text = "Brush size: " + str(ceil(value)) + "px"
 
 
 func save_file_selected(path):
